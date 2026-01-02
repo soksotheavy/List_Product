@@ -1,0 +1,166 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ShopMax | Admin Panel</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="site-wrap">
+  <div class="container py-5">
+
+    <h2 class="text-uppercase mb-4 text-center">Admin Panel</h2>
+
+    <div class="card mb-5">
+      <div class="card-body">
+        <h4 class="mb-3">Add New Product</h4>
+
+        <form id="productForm">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <input type="text" id="name" class="form-control" placeholder="Product Name" required>
+            </div>
+            <div class="col-md-4 mb-3">
+              <input type="number" id="price" class="form-control" placeholder="Price" required>
+            </div>
+            <div class="col-md-4 mb-3">
+              <input type="text" id="image" class="form-control" placeholder="Image URL" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-black">Add Product</button>
+        </form>
+      </div>
+    </div>
+    <div class="row" id="productList"></div>
+
+  </div>
+</div>
+
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script>
+  const form = document.getElementById("productForm");
+  const productList = document.getElementById("productList");
+
+  let products = [];
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const price = document.getElementById("price").value;
+    const image = document.getElementById("image").value;
+
+    const product = { name, price, image };
+    products.push(product);
+
+    displayProducts();
+    form.reset();
+  });
+
+  function displayProducts() {
+    productList.innerHTML = "";
+    products.forEach((p, index) => {
+      productList.innerHTML += `
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+          <div class="card h-100 text-center">
+            <img src="${p.image}" class="card-img-top p-3" alt="${p.name}">
+            <div class="card-body">
+              <h5>${p.name}</h5>
+              <p>$${p.price}.00</p>
+              <button class="btn btn-danger btn-sm" onclick="deleteProduct(${index})">Delete</button>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  function deleteProduct(index) {
+    products.splice(index, 1);
+    displayProducts();
+  }
+</script>
+
+</body>
+</html>
+
+ -->
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ShopMax | Admin Panel</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+
+  <style>
+    body { background: #f8f9fa; }
+    .card img { height: 220px; object-fit: contain; }
+  </style>
+</head>
+
+<body>
+
+<div class="container py-5">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-uppercase">Admin Panel</h2>
+    <a href="index.html" class="btn btn-dark">Back to Shop</a>
+  </div>
+
+  <!-- Add Product -->
+  <div class="card mb-5">
+    <div class="card-body">
+      <h4 class="mb-3">Add New Product</h4>
+
+      <form id="productForm">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <input type="text" id="name" class="form-control" placeholder="Product Name" required>
+          </div>
+          <div class="col-md-4 mb-3">
+            <input type="number" id="price" class="form-control" placeholder="Price" required>
+          </div>
+          <div class="col-md-4 mb-3">
+            <input type="text" id="image" class="form-control" placeholder="Image URL" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-dark">ADD PRODUCT</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const form = document.getElementById("productForm");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const price = document.getElementById("price").value;
+    const image = document.getElementById("image").value;
+
+    let products = JSON.parse(localStorage.getItem("products")) || [];
+
+    products.push({ name, price, image });
+
+    localStorage.setItem("products", JSON.stringify(products));
+
+    // Redirect to index page
+    window.location.href = "index.html";
+  });
+</script>
+
+</body>
+</html>
